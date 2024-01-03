@@ -1,19 +1,35 @@
 package api.models;
 
+import annotations.OptionalField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Books {
+public class Book implements Model {
     private String isbn;
+    @OptionalField
     private String title;
+
+    @OptionalField
     private String subTitle;
+
+    @OptionalField
     private String author;
+
+    @OptionalField
     @JsonProperty("publish_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private String publishDate;
+
+    @OptionalField
     private String publisher;
+
+    @OptionalField
     private int pages;
+
+    @OptionalField
     private String description;
+
+    @OptionalField
     private String website;
 
     @Override
