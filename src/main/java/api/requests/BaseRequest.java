@@ -33,6 +33,23 @@ public class BaseRequest {
                 .thenReturn();
     }
 
+    public Response delete(String baseUrl, String path, Model model, String token) {
+        RestAssured.baseURI = baseUrl;
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = null;
+        try {
+            jsonString = objectMapper.writeValueAsString(model);
+        } catch (JsonProcessingException jsonProcessingException) {
+            System.out.println(jsonProcessingException);
+        }
+        return given().contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(jsonString)
+                .when()
+                .delete(path)
+                .thenReturn();
+    }
+
     public Response getToken(String baseUrl, String path, User auth) {
         RestAssured.baseURI = baseUrl;
         ObjectMapper objectMapper = new ObjectMapper();

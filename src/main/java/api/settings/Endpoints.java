@@ -1,7 +1,7 @@
 package api.settings;
 
 public enum Endpoints {
-    USER("User"), BOOKS("BookStore/v1/Books"), BOOK("Book"), GET_TOKEN("Account/v1/GenerateToken");
+    USER("User"), BOOKS("BookStore/v1/Books"), BOOK("BookStore/v1/Book"), GET_TOKEN("Account/v1/GenerateToken");
 
     private String url;
 

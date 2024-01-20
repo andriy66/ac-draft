@@ -48,4 +48,9 @@ public class BooksRequests {
         }
         return null;
     }
+
+    public static int deleteBook(String baseUrl, BookDelete bookDelete, String token) {
+        Response response = baseRequest.delete(baseUrl, Endpoints.BOOK.getUrl(), bookDelete, token);
+        return response.getStatusCode();
+    }
 }
