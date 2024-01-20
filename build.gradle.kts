@@ -10,10 +10,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("org.testng:testng:7.5.1")
     testImplementation("org.assertj:assertj-core:3.24.2")
-    implementation("com.codeborne:selenide:6.19.1")
+    implementation("com.codeborne:selenide:6.13.1")
     implementation("io.rest-assured:rest-assured:4.5.1")
     implementation("io.github.bonigarcia:webdrivermanager:5.5.3")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.5")
@@ -21,5 +20,16 @@ dependencies {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useTestNG() {
+        if(project.properties.contains("suite")) {
+            var param: String = "";
+            val suiteName = project.properties.get("suite")
+            if(suiteName=="merge") {
+                param += "src/test/resources/suites/merge_suite.xml";
+            }
+            suites(param)
+        }
+
+        useDefaultListeners = true
+    }
 }

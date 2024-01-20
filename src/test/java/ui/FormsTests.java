@@ -3,12 +3,16 @@ package ui;
 import actions.FormsPageActions;
 import actions.MainPageActions;
 import actions.components.StudentRegistrationFormActions;
+import base.LocalWebDriver;
+import com.codeborne.selenide.Selenide;
 import components.Cards;
 import components.StudentRegistrationForm;
 import components.SubmittingForm;
 import components.stateandcity.State;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +34,16 @@ public class FormsTests extends BaseTest {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM,yyyy", Locale.ENGLISH);
     private String localDate = date.format(formatter);
 
+    @BeforeMethod
+    void setUp() {
+
+        LocalWebDriver.createLocalDriver();
+    }
+
+    @AfterTest()
+    void close() {
+        Selenide.webdriver().driver().getWebDriver().close();
+    }
     @Test
     void canSubmitFormWithValidData () {
         mainPageActions.chooseCard(Cards.FORMS);
@@ -52,15 +66,15 @@ public class FormsTests extends BaseTest {
         String address = submittingForm.getValueOfLabel("Address");
         String stateAndCity = submittingForm.getValueOfLabel("State and City");
 
-        Assertions.assertEquals(String.format("%s %s", firstName, lastName), studentFullName);
-        Assertions.assertEquals(studentEmail, email);
-        Assertions.assertEquals(gender, "Male");
-        Assertions.assertEquals(mobile, mobilePhone);
-        Assertions.assertEquals(dateOfBirth, localDate);
-        Assertions.assertEquals(subjects, "");
-        Assertions.assertEquals(hobbies, "Music, Reading, Sports");
-        Assertions.assertEquals(picture, "");
-        Assertions.assertEquals(address, "");
-        Assertions.assertEquals(stateAndCity,"NCR Noida");
+        Assert.assertEquals(String.format("%s %s", firstName, lastName), studentFullName);
+        Assert.assertEquals(studentEmail, email);
+        Assert.assertEquals(gender, "Male");
+        Assert.assertEquals(mobile, mobilePhone);
+        Assert.assertEquals(dateOfBirth, localDate);
+        Assert.assertEquals(subjects, "");
+        Assert.assertEquals(hobbies, "Music, Reading, Sports");
+        Assert.assertEquals(picture, "");
+        Assert.assertEquals(address, "");
+        Assert.assertEquals(stateAndCity,"NCR Noida");
     }
 }

@@ -2,8 +2,8 @@ package ui.book_app;
 
 import actions.book_app.*;
 import com.codeborne.selenide.Condition;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import pages.book_app.BookAppPage;
 import pages.book_app.ProfilePage;
 import ui.BaseTest;
@@ -28,8 +28,8 @@ public class BookStoreTests extends BaseTest {
         bookAppPageActions.chooseChapter(BookAppPage.Tabs.PROFILE);
         profilePage.userNameValue.shouldHave(Condition.text(USERNAME.getParameterValue()));
         boolean isInProfile = profilePageActions.getTitlesOfProducts().contains(productTitle);
-        Assertions.assertTrue(isInProfile);
+        Assert.assertTrue(isInProfile);
         profilePageActions.deleteAllProductsFromCollections();
-        Assertions.assertEquals(profilePageActions.getTitlesOfProducts().size(),0);
+        Assert.assertEquals(profilePageActions.getTitlesOfProducts().size(),0);
     }
 }

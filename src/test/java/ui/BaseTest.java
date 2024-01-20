@@ -7,8 +7,9 @@ import base.LocalWebDriver;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import components.Cards;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import pages.book_app.BookAppPage;
 import pages.book_app.ProfilePage;
 
@@ -20,17 +21,6 @@ public class BaseTest {
     private final MainPageActions mainPageActions = new MainPageActions();
     private final BookAppPageActions bookAppPageActions = new BookAppPageActions();
     private final ProfilePage profilePage = new ProfilePage();
-
-    @BeforeEach
-    void setUp() {
-        LocalWebDriver.createLocalDriver();
-    }
-
-
-    @AfterEach()
-    void close() {
-        Selenide.webdriver().driver().getWebDriver().close();
-    }
 
     protected void loginWithDefaultUser() {
         mainPageActions.chooseCard(Cards.BOOK_STORE_APP);

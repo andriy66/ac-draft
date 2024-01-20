@@ -30,6 +30,7 @@ public class BooksRequests {
     public static BookPostResponse postBooks(String baseUrl, BookPost bookPost, String token) {
         Response response = baseRequest.post(baseUrl, Endpoints.BOOKS.getUrl(), bookPost, token);
         ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println("Status code:" + response.getStatusCode());
         try {
             return objectMapper.readValue(response.getBody().asString(), BookPostResponse.class);
         } catch (JsonProcessingException jsonProcessingException) {
