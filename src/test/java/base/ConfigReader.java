@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 public enum ConfigReader {
-    URL("url"), BROWSER("browser"), USERNAME("username"), PASSWORD("password");
+    URL("url"), BROWSER("browser"), USERNAME("username"), PASSWORD("password"),
+    USER_ID("userId");
 
     public String param;
     private final String FILE_URL = "src/test/resources/config.properties";

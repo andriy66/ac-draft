@@ -6,11 +6,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.util.Objects;
 
+import static com.codeborne.selenide.Selenide.open;
+
 public class LocalWebDriver {
     public static void createLocalDriver() {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = ConfigReader.BROWSER.getParameterValue();
-        Selenide.open(Objects.requireNonNull(ConfigReader.URL.getParameterValue()));
+        open(Objects.requireNonNull(ConfigReader.URL.getParameterValue()));
         Selenide.webdriver().driver().getWebDriver().manage().window().maximize();
     }
 }
