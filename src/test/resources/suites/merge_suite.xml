@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Merge Request Suite">
+<suite name="Merge Request Suite" paralell="tests" thread-count="3">
     <test name="Api tests">
         <classes>
             <class name="api.bookstore_tests.AccountTests" />
