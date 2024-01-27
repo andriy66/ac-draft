@@ -2,6 +2,7 @@ package api.requests;
 
 import api.models.*;
 import api.settings.Endpoints;
+import api.settings.Parser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,30 +26,21 @@ public class BooksRequests {
         } catch (Exception exception) {
             System.out.println(exception);
         }
+
         return books;
     }
 
     public static BookPostResponse postBooks(BookPost bookPost, String token) {
         Response response = baseRequest.post(Endpoints.BOOKS.getUrl(), bookPost, token);
-        ObjectMapper objectMapper = new ObjectMapper();
+        Parser<BookPostResponse> parser = new Parser(BookPostResponse.class);
         System.out.println("Status code:" + response.getStatusCode());
-        try {
-            return objectMapper.readValue(response.getBody().asString(), BookPostResponse.class);
-        } catch (JsonProcessingException jsonProcessingException) {
-            System.out.println(jsonProcessingException);
-        }
-        return null;
+        return parser.parse(response);
     }
 
     public static Token getToken( User user) {
         Response response = baseRequest.getToken(Endpoints.GET_TOKEN.getUrl(), user);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(response.getBody().asString(), Token.class);
-        } catch (JsonProcessingException jsonProcessingException) {
-            System.out.println(jsonProcessingException);
-        }
-        return null;
+        Parser<Token> parser = new Parser(Token.class);
+        return parser.parse(response);
     }
 
     public static int deleteBook( BookDelete bookDelete, String token) {

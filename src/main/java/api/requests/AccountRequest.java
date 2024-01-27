@@ -16,14 +16,14 @@ public class AccountRequest {
 
     public User registerUser(final User user) {
         Response response = baseRequest.post(Endpoints.USER.getUrl(), user);
-        Parser parser = new Parser(User.class);
-        return (User) parser.parse(response);
+        Parser<User> parser = new Parser(User.class);
+        return parser.parse(response);
     }
 
     public void deleteUser(final User user, String uuid) {
-        Parser parser = new Parser(Token.class);
+        Parser<Token> parser = new Parser(Token.class);
         Response tokenResponse = baseRequest.getToken(Endpoints.GET_TOKEN.getUrl(), user);
-        Token token = (Token)parser.parse(tokenResponse);
+        Token token = parser.parse(tokenResponse);
         System.out.println("Token for deleting is " + token.getToken());
         UserID userID = new UserID();
         userID.setUserId(user.getUserID());
