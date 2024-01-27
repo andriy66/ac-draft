@@ -1,8 +1,12 @@
 package api.models;
 
+import annotations.OptionalField;
+
 import java.util.List;
 
 public class BookPostResponse {
+
+    @OptionalField
     private List<Book> books;
 
     public List<Book> getBooks() {

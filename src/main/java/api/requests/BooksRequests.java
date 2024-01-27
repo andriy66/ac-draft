@@ -2,6 +2,7 @@ package api.requests;
 
 import api.models.*;
 import api.settings.Endpoints;
+import api.settings.Parser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +14,9 @@ import java.util.Map;
 public class BooksRequests {
     private final static BaseRequest baseRequest = new BaseRequest();
 
-    public static List<Book> getAllBooks(String baseUrl) {
-        Response response = baseRequest.get(baseUrl, Endpoints.BOOKS.getUrl());
+
+    public static List<Book> getAllBooks() {
+        Response response = baseRequest.get(Endpoints.BOOKS.getUrl());
         ObjectMapper objectMapper = new ObjectMapper();
         List<Book> books = null;
         String responseForMapper = response.getBody().asString();
@@ -24,34 +26,25 @@ public class BooksRequests {
         } catch (Exception exception) {
             System.out.println(exception);
         }
+
         return books;
     }
 
-    public static BookPostResponse postBooks(String baseUrl, BookPost bookPost, String token) {
-        Response response = baseRequest.post(baseUrl, Endpoints.BOOKS.getUrl(), bookPost, token);
-        ObjectMapper objectMapper = new ObjectMapper();
+    public static BookPostResponse postBooks(BookPost bookPost, String token) {
+        Response response = baseRequest.post(Endpoints.BOOKS.getUrl(), bookPost, token);
+        Parser<BookPostResponse> parser = new Parser(BookPostResponse.class);
         System.out.println("Status code:" + response.getStatusCode());
-        try {
-            return objectMapper.readValue(response.getBody().asString(), BookPostResponse.class);
-        } catch (JsonProcessingException jsonProcessingException) {
-            System.out.println(jsonProcessingException);
-        }
-        return null;
+        return parser.parse(response);
     }
 
-    public static Token getToken(String baseUrl, User user) {
-        Response response = baseRequest.getToken(baseUrl, Endpoints.GET_TOKEN.getUrl(), user);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(response.getBody().asString(), Token.class);
-        } catch (JsonProcessingException jsonProcessingException) {
-            System.out.println(jsonProcessingException);
-        }
-        return null;
+    public static Token getToken( User user) {
+        Response response = baseRequest.getToken(Endpoints.GET_TOKEN.getUrl(), user);
+        Parser<Token> parser = new Parser(Token.class);
+        return parser.parse(response);
     }
 
-    public static int deleteBook(String baseUrl, BookDelete bookDelete, String token) {
-        Response response = baseRequest.delete(baseUrl, Endpoints.BOOK.getUrl(), bookDelete, token);
+    public static int deleteBook( BookDelete bookDelete, String token) {
+        Response response = baseRequest.delete(Endpoints.BOOK.getUrl(), bookDelete, token);
         return response.getStatusCode();
     }
 }
