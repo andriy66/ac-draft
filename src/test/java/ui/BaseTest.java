@@ -3,18 +3,13 @@ package ui;
 import actions.MainPageActions;
 import actions.book_app.BookAppPageActions;
 import actions.book_app.LoginPageActions;
-import base.LocalWebDriver;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import components.Cards;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import pages.book_app.BookAppPage;
 import pages.book_app.ProfilePage;
 
-import static base.ConfigReader.PASSWORD;
-import static base.ConfigReader.USERNAME;
+import static utils.ConfigReader.USERNAME;
+import static utils.ConfigReader.PASSWORD;
 
 public class BaseTest {
     private final LoginPageActions loginPageActions = new LoginPageActions();

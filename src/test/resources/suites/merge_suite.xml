@@ -2,8 +2,8 @@
 <suite name="Merge Request Suite">
     <test name="Api tests">
         <classes>
-            <class name="api.AccountTests" />
-            <class name="api.BookStoreTests" />
+            <class name="api.bookstore_tests.AccountTests" />
+            <class name="api.bookstore_tests.BookTests" />
         </classes>
     </test>
 </suite>

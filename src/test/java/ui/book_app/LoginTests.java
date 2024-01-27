@@ -4,7 +4,7 @@ import actions.MainPageActions;
 import actions.book_app.BookAppPageActions;
 import actions.book_app.LoginPageActions;
 import actions.book_app.ProfilePageActions;
-import base.ConfigReader;
+import utils.ConfigReader;
 import base.LocalWebDriver;
 import com.codeborne.selenide.Selenide;
 import components.Cards;

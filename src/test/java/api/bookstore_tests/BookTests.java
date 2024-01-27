@@ -1,4 +1,4 @@
-package api;
+package api.bookstore_tests;
 
 import api.models.*;
 import api.requests.BooksRequests;
@@ -8,11 +8,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static api.BaseApi.*;
 
-public class BookStoreTests {
+public class BookTests {
     private User user = new User();
     private String token = null;
     private BookDelete bookDelete;
@@ -21,16 +20,16 @@ public class BookStoreTests {
     public void setUp() {
         user.setPassword(PASSWORD);
         user.setUserName(USERNAME);
-        token = BooksRequests.getToken(URL, user).getToken();
+        token = BooksRequests.getToken(user).getToken();
         bookDelete = new BookDelete();
-        if(!BooksRequests.getAllBooks(URL).isEmpty()) {
-            deleteAllBooks(BooksRequests.getAllBooks(URL));
+        if(!BooksRequests.getAllBooks().isEmpty()) {
+            deleteAllBooks(BooksRequests.getAllBooks());
         }
     }
 
     @Test
     public void getBooks() {
-        List<Book> books = BooksRequests.getAllBooks(URL);
+        List<Book> books = BooksRequests.getAllBooks();
         Assert.assertEquals(books.size(), 8);
     }
 
@@ -39,12 +38,12 @@ public class BookStoreTests {
         BookPost bookPost = new BookPost();
         bookPost.setUserId(USER_ID);
         ISBN isbn = new ISBN();
-        List<Book> books = BooksRequests.getAllBooks(URL);
+        List<Book> books = BooksRequests.getAllBooks();
         String expectedISBN = books.get(0).getIsbn();
         isbn.setIsbn(expectedISBN);
         bookPost.setCollectionOfIsbns(List.of(isbn));
 
-        BookPostResponse response = BooksRequests.postBooks(URL, bookPost, token);
+        BookPostResponse response = BooksRequests.postBooks(bookPost, token);
         bookDelete.setIsbn(response.getBooks().get(0).getIsbn());
         bookDelete.setUserId(USER_ID);
 
@@ -54,7 +53,7 @@ public class BookStoreTests {
     @AfterTest
     public void deleteUselessBooks() {
         if(bookDelete != null) {
-            int statusCode = BooksRequests.deleteBook(URL, bookDelete, token);
+            int statusCode = BooksRequests.deleteBook(bookDelete, token);
             Assert.assertEquals(statusCode, 204, "The book didnt deleted from the cart");
         }
     }
@@ -64,7 +63,7 @@ public class BookStoreTests {
             BookDelete bookForDeleting = new BookDelete();
             bookForDeleting.setUserId(USER_ID);
             bookForDeleting.setIsbn(isbn);
-            BooksRequests.deleteBook(URL, bookForDeleting, token);
+            BooksRequests.deleteBook(bookForDeleting, token);
         }
     }
 }

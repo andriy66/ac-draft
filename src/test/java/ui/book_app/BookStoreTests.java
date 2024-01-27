@@ -8,7 +8,7 @@ import pages.book_app.BookAppPage;
 import pages.book_app.ProfilePage;
 import ui.BaseTest;
 
-import static base.ConfigReader.USERNAME;
+import static utils.ConfigReader.USERNAME;
 
 public class BookStoreTests extends BaseTest {
     private final BookAppPageActions bookAppPageActions = new BookAppPageActions();

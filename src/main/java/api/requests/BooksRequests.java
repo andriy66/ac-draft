@@ -13,8 +13,9 @@ import java.util.Map;
 public class BooksRequests {
     private final static BaseRequest baseRequest = new BaseRequest();
 
-    public static List<Book> getAllBooks(String baseUrl) {
-        Response response = baseRequest.get(baseUrl, Endpoints.BOOKS.getUrl());
+
+    public static List<Book> getAllBooks() {
+        Response response = baseRequest.get(Endpoints.BOOKS.getUrl());
         ObjectMapper objectMapper = new ObjectMapper();
         List<Book> books = null;
         String responseForMapper = response.getBody().asString();
@@ -27,8 +28,8 @@ public class BooksRequests {
         return books;
     }
 
-    public static BookPostResponse postBooks(String baseUrl, BookPost bookPost, String token) {
-        Response response = baseRequest.post(baseUrl, Endpoints.BOOKS.getUrl(), bookPost, token);
+    public static BookPostResponse postBooks(BookPost bookPost, String token) {
+        Response response = baseRequest.post(Endpoints.BOOKS.getUrl(), bookPost, token);
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println("Status code:" + response.getStatusCode());
         try {
@@ -39,8 +40,8 @@ public class BooksRequests {
         return null;
     }
 
-    public static Token getToken(String baseUrl, User user) {
-        Response response = baseRequest.getToken(baseUrl, Endpoints.GET_TOKEN.getUrl(), user);
+    public static Token getToken( User user) {
+        Response response = baseRequest.getToken(Endpoints.GET_TOKEN.getUrl(), user);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(response.getBody().asString(), Token.class);
@@ -50,8 +51,8 @@ public class BooksRequests {
         return null;
     }
 
-    public static int deleteBook(String baseUrl, BookDelete bookDelete, String token) {
-        Response response = baseRequest.delete(baseUrl, Endpoints.BOOK.getUrl(), bookDelete, token);
+    public static int deleteBook( BookDelete bookDelete, String token) {
+        Response response = baseRequest.delete(Endpoints.BOOK.getUrl(), bookDelete, token);
         return response.getStatusCode();
     }
 }

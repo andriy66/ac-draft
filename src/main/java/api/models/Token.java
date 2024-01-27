@@ -1,9 +1,17 @@
 package api.models;
 
+import annotations.OptionalField;
+
 public class Token implements Model {
     private String token;
+
+    @OptionalField
     private String expires;
+
+    @OptionalField
     private String status;
+
+    @OptionalField
     private String result;
 
     public String getToken() {

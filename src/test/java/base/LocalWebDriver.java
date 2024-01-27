@@ -3,6 +3,7 @@ package base;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import utils.ConfigReader;
 
 import java.util.Objects;
 
