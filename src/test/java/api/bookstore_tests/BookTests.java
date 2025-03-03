@@ -50,14 +50,6 @@ public class BookTests {
         Assert.assertEquals(response.getBooks().get(0).getIsbn(), expectedISBN);
     }
 
-    @AfterTest
-    public void deleteUselessBooks() {
-        if(bookDelete != null) {
-            int statusCode = BooksRequests.deleteBook(bookDelete, token);
-            Assert.assertEquals(statusCode, 204, "The book didnt deleted from the cart");
-        }
-    }
-
     private void deleteAllBooks(List<Book> books) {
         for (String isbn: books.stream().map(Book::getIsbn).toList()) {
             BookDelete bookForDeleting = new BookDelete();
